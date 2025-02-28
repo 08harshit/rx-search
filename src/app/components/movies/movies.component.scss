@@ -27,3 +27,9 @@ h3 {
   margin: 0;
   font-size: 16px;
 }
+.viewport {
+  height: 1000px; /* Set viewport height */
+  width: 100%;
+  overflow: auto;
+  border: 1px solid #ddd;
+}

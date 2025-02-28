@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, Observable, of, shareReplay, Subject, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class SearchService {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(query => query ? this.fetchResults(query) : of([])),
+      shareReplay(1),
       catchError(error => {
         console.error('Search API Error:', error);
         return of([]);
