@@ -5,7 +5,7 @@ import { catchError, debounceTime, distinctUntilChanged, Observable, of, Subject
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceService {
+export class SearchService {
   searchSubject = new Subject<string>();
   YOUR_API_KEY: string = '23fede1b4ae22730350dc7ed60906a31'
 
@@ -28,6 +28,7 @@ export class ServiceService {
   }
 
   search(query: string): void{
+    console.log("🚀 ~ SearchService ~ search ~ query:", query)
     this.searchSubject.next(query);
   }
 }
