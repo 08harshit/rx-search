@@ -12,7 +12,7 @@ import { MoviesComponent } from './components/movies/movies.component';
   providers: [SearchService]
 })
 export class AppComponent {
-  movies: any;
+  movies: any = { results: [] }; // Initialize with default value
   constructor(private searchService: SearchService) {
 
   }
