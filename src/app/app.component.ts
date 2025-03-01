@@ -12,17 +12,22 @@ import { MoviesComponent } from './components/movies/movies.component';
   providers: [SearchService]
 })
 export class AppComponent {
-  movies: any = { results: [] }; // Initialize with default value
+  movies: any[] = [];
   constructor(private searchService: SearchService) {
 
   }
   title = 'rx-search';
 
   handleSearch(query: string) {
+    if (!query.trim()) {
+      this.movies.length = 0; // Clear array without changing reference
+      return;
+    }
     this.searchService.search(query);
     this.searchService.getSearchResults().subscribe(results => {
-      this.movies= results
-    }
-    )
+      // Modify array in place instead of creating new reference
+      this.movies.length = 0;
+      this.movies.push(...results);
+    });
   }
 }

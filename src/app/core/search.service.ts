@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, debounceTime, distinctUntilChanged, Observable, of, shareReplay, Subject, switchMap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, Observable, of, shareReplay, Subject, switchMap, map } from 'rxjs';
+
+interface MovieResponse {
+  results: any[];
+  // Add other properties if needed
+}
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +29,12 @@ export class SearchService {
     );
   }
 
-  fetchResults(query: string): Observable<any> {
-    return this.http.get(`https://api.themoviedb.org/3/search/movie?query={${query}}&api_key=${this.YOUR_API_KEY}`)
+  fetchResults(query: string): Observable<any[]> {
+    return this.http.get<MovieResponse>(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${this.YOUR_API_KEY}`
+    ).pipe(
+      map(response => response.results)
+    );
   }
 
   search(query: string): void{

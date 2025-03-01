@@ -1,5 +1,6 @@
 <cdk-virtual-scroll-viewport itemSize="50" class="viewport">
 
+  <button (click)="changeMovies()">changeMovies</button>
   <div class="movies-container">
     <div *ngFor="let movie of movies" class="movie-card">
       <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="movie-poster" />
